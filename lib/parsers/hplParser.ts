@@ -203,7 +203,24 @@ function splitLine(line: string): string[] {
 
 // ─── Main parser ─────────────────────────────────────────────────────────────
 
+const BINARY_HPL_MAGIC = 'HPT '   // HP Tuners binary datalog signature
+
 export async function parseHPL(file: File): Promise<TuneData> {
+  // ── Detect binary HPL format ─────────────────────────────────────────────
+  // VCM Scanner saves native .hpl files as a proprietary binary format that
+  // starts with "HPT ". These cannot be parsed as text.
+  // Users must export to CSV/text from VCM Scanner first.
+  const headerBuf = await file.slice(0, 4).arrayBuffer()
+  const headerStr = new TextDecoder('ascii', { fatal: false }).decode(headerBuf)
+  if (headerStr === BINARY_HPL_MAGIC) {
+    return buildEmptyTuneData(
+      'Binary HP Tuners datalog detected (.hpl native format). ' +
+      'This format cannot be read directly. ' +
+      'To use this file: open VCM Scanner → File → Export → ' +
+      'Export to Text/CSV → save as .csv → upload that file instead.'
+    )
+  }
+
   const text = await file.text()
   const lines = text.split(/\r?\n/)
 

@@ -382,6 +382,21 @@ class App:
                 return
 
             self.tune_data = data
+
+            # If the parser could not extract data (e.g. binary HPL), show a
+            # warning and stop — do not proceed to upload.
+            parse_warning = data.get("_parseWarning")
+            if parse_warning:
+                self.root.after(0, lambda: self._set_progress(0))
+                self.root.after(0, lambda: self.upload_btn.config(state="normal"))
+                self.root.after(0, lambda: self._set_status(
+                    "⚠️  File format not supported for direct parsing.", error=True))
+                self.root.after(0, lambda: messagebox.showwarning(
+                    "Export required",
+                    parse_warning,
+                ))
+                return
+
             self.root.after(0, lambda: self._set_progress(40))
             self.root.after(0, lambda: self._show_consent_dialog(data))
 
@@ -393,7 +408,7 @@ class App:
             self.root.after(0, lambda: messagebox.showerror(
                 "Parse error",
                 f"Could not read file:\n{exc}\n\n"
-                "If this is a CSV export, try renaming it to .hpl.\n"
+                "If this is a .hpl file, export it from VCM Scanner as Text/CSV first.\n"
                 "If this is a .bin file, ensure it is a raw PCM dump."
             ))
 
