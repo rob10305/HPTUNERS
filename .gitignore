@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+companion/dist/
+companion/build_output/

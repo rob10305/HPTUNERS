@@ -1,0 +1,19 @@
+{
+  "12632454": {
+    "label": "GM LS3 — 2010-2015 Camaro SS / Corvette",
+    "VE": { "offset": 35392, "rows": 24, "cols": 24, "type": "float32" },
+    "spark": { "offset": 40736, "rows": 24, "cols": 24, "type": "float32" },
+    "MAF": { "offset": 45584, "count": 256, "type": "uint16", "scale": 0.01 },
+    "injectorFlow": { "offset": 50240, "type": "float32" },
+    "WOT_AFR": { "offset": 53504, "count": 16, "type": "float32" },
+    "revLimit": { "offset": 61200, "type": "uint16" }
+  },
+  "12586243": {
+    "label": "GM LS1 — 1997-2002 Camaro/Firebird",
+    "VE": { "offset": 28672, "rows": 16, "cols": 16, "type": "float32" },
+    "spark": { "offset": 31744, "rows": 16, "cols": 16, "type": "float32" },
+    "MAF": { "offset": 34816, "count": 128, "type": "uint16", "scale": 0.01 },
+    "injectorFlow": { "offset": 37888, "type": "float32" },
+    "revLimit": { "offset": 40960, "type": "uint16" }
+  }
+}
