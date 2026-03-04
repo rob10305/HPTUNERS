@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
   // ── Store session ─────────────────────────────────────────────────────────
   const session = createSession(tuneData)
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+  const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000').trim()
   const redirectUrl = `${appUrl}/intent?session=${session.sessionId}`
 
   return NextResponse.json(

@@ -70,7 +70,7 @@ def upload_and_launch(
     except Exception:
         return False, "Server returned invalid JSON."
 
-    redirect_url = result.get("redirectUrl")
+    redirect_url = (result.get("redirectUrl") or "").replace("\n", "").replace("\r", "").strip()
     if not redirect_url:
         return False, "Server did not return a redirect URL."
 
